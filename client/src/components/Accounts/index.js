@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
+import {logout} from '../../actions'
+
 import {Row, Col, Card, CardText, CardBody,
   CardTitle, Button, InputGroupAddon,InputGroup, Input, Table } from 'reactstrap';
 
@@ -7,7 +10,7 @@ class Accounts extends Component {
     return (
       <div>
         <Row>
-          <h4>Accounts</h4>
+          <h4>Accounts {this.props.userName}</h4>
         </Row>
         <Row>
           <Col xs="6">
@@ -20,6 +23,7 @@ class Accounts extends Component {
                 <br/>
                 <Button color="success">Deposits</Button>{' '}
                 <Button color="danger">Withdraw</Button>{' '}
+                <Button color="info " onClick={this.props.logout}>LOGOUT</Button>
               </CardBody>
             </Card>
           </Col>
@@ -68,4 +72,10 @@ class Accounts extends Component {
   }
 }
 
-export default Accounts;
+const mapStateToProps = (state) => {
+  return {
+    userName: state.auth.userName
+  }
+}
+
+export default connect(mapStateToProps,{logout})(Accounts);

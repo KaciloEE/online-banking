@@ -13,12 +13,18 @@ import registerServiceWorker from './registerServiceWorker';
 import reducers from './reducers';
 import App from './App';
 import Register from './components/Register';
+import {loginUserSuccess} from './actions';
 
 const store = createStore(reducers, composeWithDevTools(
   applyMiddleware(thunk)
 ))
 
 const history = syncHistoryWithStore(browserHistory, store);
+
+let token = localStorage.getItem('token');
+if (token !== null) {
+  store.dispatch(loginUserSuccess(token));
+}
 
 ReactDOM.render(
   <Provider store={store}>
@@ -29,4 +35,5 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root')
 );
+
 registerServiceWorker();

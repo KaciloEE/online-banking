@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import { Jumbotron, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Label, Input, Col } from 'reactstrap';
 import {Link} from 'react-router';
+import {loginUser} from '../../actions';
 
 class Home extends Component {
   constructor(props) {
@@ -20,11 +22,29 @@ class Home extends Component {
       modal: !this.state.modal
     });
   }
-  handleClick = (e) => {
+
+  handleLogin = (e) => {
+    const data = {
+      email: this.state.email,
+      password: this.state.password
+    }
+    this.props.loginUser(data)
+
     this.setState({
       modal: !this.state.modal
     })
   }
+  handleEmail = (e) => {
+    this.setState({
+      email: e.target.value
+    })
+  }
+  handlePassword = (e) => {
+    this.setState({
+      password: e.target.value
+    })
+  }
+
   render () {
     return (
       <div>
@@ -43,23 +63,21 @@ class Home extends Component {
         <Modal isOpen={this.state.modal} toggle={this.toggle} backdrop={this.state.backdrop}>
           <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
           <ModalBody>
-            <p>{this.state.email}</p>
-            <p>{this.state.password}</p>
             <FormGroup row>
               <Label for="exampleEmail" sm={2}>Email</Label>
               <Col sm={10}>
-                <Input type="email" name="email" id="exampleEmail" placeholder="with a placeholder" />
+                <Input type="email" onChange={this.handleEmail} name="email" id="exampleEmail" placeholder="with a placeholder" />
               </Col>
             </FormGroup>
             <FormGroup row>
               <Label for="examplePassword" sm={2}>Password</Label>
               <Col sm={10}>
-                <Input type="password" name="password" id="examplePassword" placeholder="password placeholder" />
+                <Input type="password" onChange={this.handlePassword} name="password" id="examplePassword" placeholder="password placeholder" />
               </Col>
             </FormGroup>
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={this.handleClick}>Do Something</Button>{' '}
+            <Button color="primary" onClick={this.handleLogin}>Do Something</Button>{' '}
             <Button color="secondary" onClick={this.toggle}>Cancel</Button>
           </ModalFooter>
         </Modal>
@@ -68,4 +86,14 @@ class Home extends Component {
   }
 };
 
-export default Home;
+const mapStateToProps = (state) => {
+  return {
+    statusText: state.auth.statusText
+  }
+}
+
+const mapDispatchToProps = {
+  loginUser
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

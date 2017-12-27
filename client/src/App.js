@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
+
 import Header from './components/Header';
-import Home from './components/Home'
-import Accounts from './components/Accounts'
+import Home from './components/Home';
+import Accounts from './components/Accounts';
 
 import { Container, Row, Col } from 'reactstrap';
 
@@ -22,7 +24,7 @@ class App extends Component {
         </Row>
         <Row>
           <Col>
-            {this.state.isActive ? <Accounts/> : <Home/> }
+            {this.props.isAuthenticated ? <Accounts/> : <Home/> }
           </Col>
         </Row>
       </Container>
@@ -30,4 +32,10 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    isAuthenticated: state.auth.isAuthenticated
+  }
+}
+
+export default connect(mapStateToProps)(App);
