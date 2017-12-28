@@ -8,12 +8,6 @@ import Accounts from './components/Accounts';
 import { Container, Row, Col } from 'reactstrap';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isActive: false
-    };
-  }
   render () {
     return (
       <Container>

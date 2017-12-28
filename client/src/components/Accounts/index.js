@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import {logout, getBalance, makeDeposit} from '../../actions';
+import {logout, getBalance, makeDeposit, withdrawDeposit} from '../../actions';
 
 import {Row, Col, Card, CardText, CardBody,
   CardTitle, Button, InputGroupAddon,InputGroup, Input, Table } from 'reactstrap';
@@ -13,6 +13,9 @@ class Accounts extends Component {
       amount:0
     }
   }
+  componentDidMount() {
+    this.props.getBalance();
+  }
   handleInput = (e) => {
     const amount = e.target.value
     this.setState({
@@ -23,26 +26,16 @@ class Accounts extends Component {
   deposit = (e) => {
     if (this.state.amount > 0 ) {
       this.props.makeDeposit(parseFloat(this.state.amount), 'D');
-      //this.props.getBalance();
+      this.props.getBalance();
       let inputs = document.getElementsByTagName('input');
       this.setState({amount:0})
       inputs[0].value = '';
     }
   }
 
-  withdraw(e){
-    e.preventDefault();
-    //Checking if user input is greater than available balance, if its greater
-    //it will show "Not enough balance"
-    let currentBalance = document.getElementsByClassName('miniOverviewBalance')[0].innerText;
-    if(parseFloat(currentBalance) <= 0 || parseFloat(this.state.amount) > parseFloat(currentBalance)){
-      let el = document.getElementsByClassName('warningRed');
-      el[0].innerText = 'Not enough balance'
-      el[0].style.opacity = 1;
-      return;
-    }
-    //If amount is valid and withdrawing less than available balance
-    if(!isNaN(this.state.amount)  && this.state.amount > 0){
+  withdraw = (e) => {
+
+    if (this.state.amount > 0) {
       this.props.withdrawDeposit(parseFloat(this.state.amount), 'W');
       this.props.getBalance();
       this.setState({amount:0});
@@ -55,7 +48,7 @@ class Accounts extends Component {
     return (
       <div>
         <Row>
-          <h4>Accounts {this.props.userName} {this.state.amount}</h4>
+          <h4>Accounts {this.props.userName}</h4>
         </Row>
         <Row>
           <Col xs="6">
@@ -63,7 +56,7 @@ class Accounts extends Component {
               <CardBody>
                   <InputGroup>
                     <InputGroupAddon>$</InputGroupAddon>
-                    <Input onChange={this.handleInput} className="warningRed" placeholder="Amount" type="number" min="0" step="1" />
+                    <Input onChange={this.handleInput} className="warningRed" placeholder="Amount" type="number" min="0" step="50" />
                   </InputGroup>
                 <br/>
                 <Button color="success" onClick={this.deposit}>Deposits</Button>{' '}
@@ -91,24 +84,19 @@ class Accounts extends Component {
               <th>TransactionID</th>
               <th>Description</th>
               <th>Amount</th>
-              <th>Available</th>
+              <th>Available Balance</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-            </tr>
-            <tr>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>@fat</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-            </tr>
+            {this.props.balanceHistory.map((item,ind) =>
+              <tr key={ind}>
+                <td>{item.date}</td>
+                <td>{item.id}</td>
+                <td className={item.desc === 'Deposit' ? 'green' : 'red'}>{item.desc}</td>
+                <td className={item.desc === 'Deposit' ? 'green' : 'red'}>${item.amount}</td>
+                <td>${item.balance}</td>
+              </tr>
+            )}
             </tbody>
           </Table>
         </Row>
@@ -120,14 +108,16 @@ class Accounts extends Component {
 const mapStateToProps = (state) => {
   return {
     userName: state.auth.userName,
-    totalBalance: state.accounts.totalBalance
+    totalBalance: state.accounts.totalBalance,
+    balanceHistory: state.accounts.accData.account.checking
   }
 }
 
 const mapDispatchToProps = {
   logout,
   getBalance,
-  makeDeposit
+  makeDeposit,
+  withdrawDeposit
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Accounts);

@@ -6,3 +6,4 @@ export const LOGOUT_USER = 'LOGOUT_USER'
 
 export const GET_BALANCE = 'GET_BALANCE'
 export const MAKE_DEPOSIT = 'MAKE_DEPOSIT'
+export const WITHDRAW_DEPOSIT = 'WITHDRAW_DEPOSIT'
