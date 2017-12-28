@@ -27,7 +27,7 @@ export const loginUser = (data) => async dispatch => {
   dispatch({type: LOGIN_USER_START})
   await axios.post('http://localhost:8081/auth/login/', {...data})
     .then(response => {
-      dispatch(loginUserSuccess(response.data.token));
+      dispatch(loginUserSuccess(response.data.token))
     })
     .catch(error => dispatch(loginUserFailure(error)))
 }
@@ -36,6 +36,15 @@ export const logout = () => dispatch => {
   localStorage.removeItem('token');
   dispatch({type: LOGOUT_USER})
 }
+
+export const registerUser = (data) => async dispatch => {
+  await axios.post('http://localhost:8081/auth/register/', {...data})
+    .then(response => {
+      dispatch(loginUserSuccess(response.data.token));
+    })
+    .catch(error => dispatch(loginUserFailure(error)))
+}
+
 
 export const getBalance = () => dispatch => {
   dispatch({type: GET_BALANCE})
