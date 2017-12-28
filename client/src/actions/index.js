@@ -1,4 +1,4 @@
-import {LOGIN_USER_START, LOGIN_USER_SUCCESS, LOGIN_USER_FAILURE, LOGOUT_USER} from '../constants';
+import {LOGIN_USER_START, LOGIN_USER_SUCCESS, LOGIN_USER_FAILURE, LOGOUT_USER, GET_BALANCE, MAKE_DEPOSIT} from '../constants';
 import axios from 'axios';
 
 
@@ -35,4 +35,19 @@ export const loginUser = (data) => dispatch => {
 export const logout = () => dispatch => {
   localStorage.removeItem('token');
   dispatch({type: LOGOUT_USER})
+}
+
+export const getBalance = () => dispatch => {
+  dispatch({type: GET_BALANCE})
+}
+
+export const makeDeposit = (amount, code) => dispatch => {
+  let payload = {
+    amount,
+    code
+  }
+  dispatch({
+    type: MAKE_DEPOSIT,
+    payload
+  })
 }
