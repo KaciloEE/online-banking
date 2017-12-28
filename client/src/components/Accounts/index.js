@@ -48,7 +48,7 @@ class Accounts extends Component {
     return (
       <div>
         <Row>
-          <h4>Accounts {this.props.userName}</h4>
+          <h4>Accounts {this.props.firstName} {this.props.lastName}</h4>
         </Row>
         <Row>
           <Col xs="6">
@@ -107,7 +107,8 @@ class Accounts extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    userName: state.auth.userName,
+    firstName: state.auth.firstName,
+    lastName: state.auth.lastName,
     totalBalance: state.accounts.totalBalance,
     balanceHistory: state.accounts.accData.account.checking
   }

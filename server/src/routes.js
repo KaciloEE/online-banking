@@ -11,10 +11,6 @@ function jwtSignUser(user) {
 
 module.exports = (app) => {
 
-  app.get('/', (req, res) => {
-    res.send('OK')
-  })
-
   app.post('/auth/register/', (req, res) => {
     try {
       User.create(req.body)
@@ -26,6 +22,7 @@ module.exports = (app) => {
           })
         })
         .catch(err => {
+          console.log(err)
           res.sendStatus(400);
         })
     } catch (err) {
