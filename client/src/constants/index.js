@@ -7,3 +7,8 @@ export const LOGOUT_USER = 'LOGOUT_USER'
 export const GET_BALANCE = 'GET_BALANCE'
 export const MAKE_DEPOSIT = 'MAKE_DEPOSIT'
 export const WITHDRAW_DEPOSIT = 'WITHDRAW_DEPOSIT'
+
+
+export const ALERT_SUCCESS = 'ALERT_SUCCESS'
+export const ALERT_ERROR = 'ALERT_ERROR'
+export const ALERT_CLEAR = 'ALERT_CLEAR'

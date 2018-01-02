@@ -5,15 +5,21 @@ import Header from './components/Header';
 import Home from './components/Home';
 import Accounts from './components/Accounts';
 
-import { Container, Row, Col } from 'reactstrap';
+import {UncontrolledAlert, Container, Row, Col } from 'reactstrap';
 
 class App extends Component {
   render () {
+    const { alert } = this.props;
     return (
       <Container>
         <Row>
           <Col>
             <Header/>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            {alert.message ? <UncontrolledAlert color={alert.type}>{alert.message}</UncontrolledAlert>: '' }
           </Col>
         </Row>
         <Row>
@@ -27,8 +33,10 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => {
+  const {alert} = state;
   return {
-    isAuthenticated: state.auth.isAuthenticated
+    isAuthenticated: state.auth.isAuthenticated,
+    alert
   }
 }
 

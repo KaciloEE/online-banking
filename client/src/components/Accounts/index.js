@@ -48,7 +48,9 @@ class Accounts extends Component {
     return (
       <div>
         <Row>
-          <h4>Accounts {this.props.firstName} {this.props.lastName}</h4>
+          <Col>
+            <h4>Accounts {this.props.firstName} {this.props.lastName}</h4>
+          </Col>
         </Row>
         <Row>
           <Col xs="6">
