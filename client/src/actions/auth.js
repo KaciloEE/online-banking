@@ -26,12 +26,13 @@ export const loginUser = (data) => dispatch => {
   dispatch({type: LOGIN_USER_START})
   axios.post('http://localhost:8081/auth/login/', {...data})
     .then(response => {
+      console.log(response)
       dispatch(loginUserSuccess(response.data.token))
       dispatch(alertActions.success())
     })
     .catch(error => {
       dispatch(loginUserFailure(error))
-      dispatch(alertActions.error({error}))
+      dispatch(alertActions.error(error.response.data))
     })
 }
 
@@ -41,18 +42,16 @@ export const logout = () => dispatch => {
   dispatch(alertActions.clear())
 }
 
-export const registerUser = (data) => async dispatch => {
-  await axios.post('http://localhost:8081/auth/register/', {...data})
+export const registerUser = (payload) => dispatch => {
+  axios.post('http://localhost:8081/auth/register/', {...payload})
     .then(response => {
-      console.log(response)
       dispatch(loginUserSuccess(response.data.token))
-      //dispatch(alertActions.success())
+      dispatch(alertActions.success())
       browserHistory.push('/')
     })
     .catch(error => {
-      console.log(error)
       dispatch(loginUserFailure(error))
-      dispatch(alertActions.error({error}))
+      dispatch(alertActions.error(error.response.data))
     })
 
 }

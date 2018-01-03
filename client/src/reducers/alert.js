@@ -12,7 +12,7 @@ export default (state = initialState, {type, payload}) => {
     case ALERT_ERROR:
       return {
         type: 'danger',
-        message: 'Authentication Error'
+        message: payload.message
         //message: `Authentication Error: ${payload.status} ${payload.statusText}`
       };
     case ALERT_CLEAR:
