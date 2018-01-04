@@ -1,20 +1,33 @@
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 
-import {GET_ACCOUNTS,GET_BALANCE, TRANSACTION, CLEAR_STATE_ACCOUNT} from '../constants';
+import {GET_ACCOUNTS,GET_BALANCE, TRANSACTION, CLEAR_STATE_ACCOUNT, GET_USERS} from '../constants';
 import { hashCode } from '../utils';
 
 
 let unixTime = Math.round((new Date()).getTime() / 1000);
 
-export const getAccounts = () => async (dispatch, getState) => {
-  await axios.get('http://localhost:8081/api/balance/', { headers: { token: getState().auth.token } })
+export const getAccounts = (user) => async (dispatch, getState) => {
+  await axios.get('http://localhost:8081/api/balance/', { headers: { token: getState().auth.token }, params: { user } })
     .then((response) => {
       dispatch({
         type: GET_ACCOUNTS,
         payload: response.data
       })
       dispatch(getBalance())
+    })
+    .catch(err => {
+      console.log(err)
+    })
+}
+
+export const getUsers = () => async (dispatch, getState) => {
+  await axios.get('http://localhost:8081/api/allUser/', { headers: { token: getState().auth.token } })
+    .then((response) => {
+      dispatch({
+        type: GET_USERS,
+        payload: response.data
+      })
     })
     .catch(err => {
       console.log(err)

@@ -15,3 +15,6 @@ export const CLEAR_STATE_ACCOUNT = 'CLEAR_STATE_ACCOUNT'
 export const ALERT_SUCCESS = 'ALERT_SUCCESS'
 export const ALERT_ERROR = 'ALERT_ERROR'
 export const ALERT_CLEAR = 'ALERT_CLEAR'
+
+
+export const GET_USERS = 'GET_USERS'

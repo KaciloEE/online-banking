@@ -1,17 +1,25 @@
 import React from 'react';
 import {
   Navbar,
-  NavbarBrand
+  NavbarBrand,
+  Nav,
+  NavItem,
+  NavLink
    } from 'reactstrap';
 
-const App = () => {
+const Header = () => {
   return (
     <div>
       <Navbar color="faded" light expand="md">
         <NavbarBrand href="/">Online Banking</NavbarBrand>
+        <Nav className="ml-auto" navbar>
+          <NavItem>
+              <NavLink href="/">LogOut</NavLink>
+          </NavItem>
+        </Nav>
       </Navbar>
     </div>
   )
 }
 
-export default App;
+export default Header;

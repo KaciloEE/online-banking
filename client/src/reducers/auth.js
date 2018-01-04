@@ -5,7 +5,8 @@ const initialState = {
   token: null,
   firstName: null,
   lastName: null,
-  isAuthenticated: false
+  isAuthenticated: false,
+  role: null
 };
 
 export default (state = initialState, {type, payload}) => {
@@ -15,21 +16,24 @@ export default (state = initialState, {type, payload}) => {
         'isAuthenticated': true,
         'token': payload.token,
         'firstName': jwtDecode(payload.token).firstName,
-        'lastName': jwtDecode(payload.token).lastName
+        'lastName': jwtDecode(payload.token).lastName,
+        'role': jwtDecode(payload.token).role
       })
     case LOGIN_USER_FAILURE:
       return Object.assign({}, state, {
         'isAuthenticated': false,
         'token': null,
         'firstName': null,
-        'lastName': null
+        'lastName': null,
+        'role': null
       })
     case LOGOUT_USER:
       return Object.assign({}, state, {
         'isAuthenticated': false,
         'token': null,
         'firstName': null,
-        'lastName': null
+        'lastName': null,
+        'role': null
       })
     default:
       return state

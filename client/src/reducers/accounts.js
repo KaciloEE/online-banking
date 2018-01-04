@@ -1,13 +1,16 @@
-import {GET_ACCOUNTS, GET_BALANCE, TRANSACTION, CLEAR_STATE_ACCOUNT} from '../constants';
+import {GET_ACCOUNTS, GET_BALANCE, TRANSACTION, CLEAR_STATE_ACCOUNT, GET_USERS} from '../constants';
 const initialState = {
   totalBalance: 0,
-  accData: []
+  accData: [],
+  users: []
 }
 
 export default (state = initialState, {type, payload}) => {
 
   switch (type) {
     case GET_ACCOUNTS:
+      return Object.assign({}, state, payload)
+    case GET_USERS:
       return Object.assign({}, state, payload)
     case GET_BALANCE:
       let totalDepositFilter = state.accData.filter(item => item.desc ==='Deposit').map(d => d.amount);

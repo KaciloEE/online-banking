@@ -1,5 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import './main.css';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {createStore, applyMiddleware} from 'redux';
@@ -8,8 +9,8 @@ import thunk from 'redux-thunk';
 import {syncHistoryWithStore} from 'react-router-redux';
 import {Router, Route, browserHistory} from 'react-router';
 import {Provider} from 'react-redux';
-import registerServiceWorker from './registerServiceWorker';
 
+import registerServiceWorker from './registerServiceWorker';
 import reducers from './reducers';
 import App from './App';
 import Register from './containers/Register';

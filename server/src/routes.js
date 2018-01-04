@@ -69,15 +69,27 @@ module.exports = (app) => {
   app.get('/api/balance/', (req, res) => {
     const decoded = jwt.decode(req.headers.token);
 
-    Account.findAll({
-      where: {
-        user: decoded.id
-      },
+    console.log(req.query)
+
+    // Account.findAll({
+    //   where: {
+    //     user: decoded.id
+    //   },
+    //   raw : true
+    // }).then(result => res.send({accData: result}))
+    //   .catch((err) => {
+    //   res.status(400).send({message: 'Something went wrong with your Signin'});
+    // });
+
+  });
+
+  app.get('/api/allUser/', (req, res) => {
+    User.findAll({
       raw : true
-    }).then(result => res.send({accData: result}))
+    }).then(result => res.send({users: result}))
       .catch((err) => {
-      res.status(400).send({message: 'Something went wrong with your Signin'});
-    });
+        res.status(400).send({message: 'Something went wrong with your Signin'});
+      });
 
   });
 
