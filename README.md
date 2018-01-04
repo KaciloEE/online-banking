@@ -3,10 +3,10 @@
 ### Users Test
 ```
 Client: user@test.com and user2@test.com
-           password: 2
-           or register new Client
+        password: 2
+        or register new Client
 Manager: admin@admin.com
-                password: 2           
+         password: 2           
 ```
 
 ### Client
