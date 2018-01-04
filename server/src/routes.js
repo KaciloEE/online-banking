@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
-const {User} = require('./models');
+const {User, Account} = require('./models');
 const config = require('./config/config');
 
 function jwtSignUser(user) {
@@ -64,5 +64,28 @@ module.exports = (app) => {
     }).catch((err) => {
       res.status(400).send({message: 'Something went wrong with your Signin'});
     });
+  });
+
+  app.get('/api/balance/', (req, res) => {
+    const decoded = jwt.decode(req.headers.token);
+
+    Account.findAll({
+      where: {
+        user: decoded.id
+      },
+      raw : true
+    }).then(result => res.send({accData: result}))
+      .catch((err) => {
+      res.status(400).send({message: 'Something went wrong with your Signin'});
+    });
+
+  });
+
+  app.post('/api/transfer/', (req, res) => {
+    // const decoded = jwt.decode(req.headers.token);
+    Account.create(req.body.depositTrans)
+      .then((data) => {
+        res.send(data)
+      })
   });
 }

@@ -26,7 +26,6 @@ export const loginUser = (data) => dispatch => {
   dispatch({type: LOGIN_USER_START})
   axios.post('http://localhost:8081/auth/login/', {...data})
     .then(response => {
-      console.log(response)
       dispatch(loginUserSuccess(response.data.token))
       dispatch(alertActions.success())
     })

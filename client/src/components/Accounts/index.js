@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import {logout, getBalance, makeDeposit, withdrawDeposit} from '../../actions';
-
 import {Row, Col, Card, CardText, CardBody,
   CardTitle, Button, InputGroupAddon,InputGroup, Input, Table } from 'reactstrap';
+
+import {logout, getBalance, makeDeposit, withdrawDeposit, getAccounts} from '../../actions';
+
 
 class Accounts extends Component {
   constructor(props) {
@@ -14,7 +15,8 @@ class Accounts extends Component {
     }
   }
   componentDidMount() {
-    this.props.getBalance();
+    //this.props.getAccounts().then(() => this.props.getBalance())
+    this.props.getAccounts();
   }
   handleInput = (e) => {
     const amount = e.target.value
@@ -86,17 +88,15 @@ class Accounts extends Component {
               <th>TransactionID</th>
               <th>Description</th>
               <th>Amount</th>
-              <th>Available Balance</th>
             </tr>
             </thead>
             <tbody>
             {this.props.balanceHistory.map((item,ind) =>
               <tr key={ind}>
-                <td>{item.date}</td>
-                <td>{item.id}</td>
+                <td>{Date(item.date)}</td>
+                <td>{item.transactionID}</td>
                 <td className={item.desc === 'Deposit' ? 'green' : 'red'}>{item.desc}</td>
                 <td className={item.desc === 'Deposit' ? 'green' : 'red'}>${item.amount}</td>
-                <td>${item.balance}</td>
               </tr>
             )}
             </tbody>
@@ -112,7 +112,7 @@ const mapStateToProps = (state) => {
     firstName: state.auth.firstName,
     lastName: state.auth.lastName,
     totalBalance: state.accounts.totalBalance,
-    balanceHistory: state.accounts.accData.account.checking
+    balanceHistory: state.accounts.accData
   }
 }
 
@@ -120,7 +120,8 @@ const mapDispatchToProps = {
   logout,
   getBalance,
   makeDeposit,
-  withdrawDeposit
+  withdrawDeposit,
+  getAccounts
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Accounts);
