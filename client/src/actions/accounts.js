@@ -1,5 +1,6 @@
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
+import moment from 'moment';
 
 import {GET_ACCOUNTS,GET_BALANCE, TRANSACTION, CLEAR_STATE_ACCOUNT, GET_USERS} from '../constants';
 import { hashCode } from '../utils';
@@ -43,7 +44,7 @@ export const transaction = (amount, code, desc, userId) => async (dispatch, getS
   let depositTrans = {
     transactionID: hashCode(code, unixTime),
     amount: parseFloat(amount),
-    date: parseFloat(unixTime),
+    date: moment(new Date()).format("YYYY-MM-DD HH:mm:ss"),//parseFloat(unixTime),
     desc: desc,
     user: userId ? userId : jwtDecode(getState().auth.token).id
   }

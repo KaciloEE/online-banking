@@ -1,7 +1,7 @@
 module.exports = (sequelize, DataTypes) => {
   const Account = sequelize.define('Account', {
     transactionID: DataTypes.STRING,
-    date: DataTypes.INTEGER,
+    date: DataTypes.STRING,
     desc: DataTypes.STRING,
     amount: DataTypes.FLOAT,
     user: DataTypes.INTEGER

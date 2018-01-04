@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+import moment from 'moment';
 import {Row, Col, Card, CardText, CardBody,
   CardTitle, Button, InputGroupAddon,InputGroup, Input, Table, Form, FormGroup } from 'reactstrap';
 
@@ -108,7 +109,7 @@ class Manager extends Component {
             <tbody>
             {this.props.balanceHistory.map((item,ind) =>
               <tr key={ind}>
-                <td>{Date(item.date)}</td>
+                <td>{moment(item.date).format('MMMM Do YYYY, h:mm:ss')}</td>
                 <td>{item.transactionID}</td>
                 <td className={item.desc === 'Deposit' ? 'green' : 'red'}>{item.desc}</td>
                 <td className={item.desc === 'Deposit' ? 'green' : 'red'}>${item.amount}</td>

@@ -73,6 +73,7 @@ module.exports = (app) => {
       where: {
         user: decoded.role === 'admin' ? req.query.user : decoded.id
       },
+      order: [['updatedAt', 'DESC']],
       raw : true
     }).then(result => res.send({accData: result}))
       .catch((err) => {
@@ -83,6 +84,9 @@ module.exports = (app) => {
 
   app.get('/api/allUser/', (req, res) => {
     User.findAll({
+      where: {
+        role: 'user'
+      },
       raw : true
     }).then(result => res.send({users: result}))
       .catch((err) => {
