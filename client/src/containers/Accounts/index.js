@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {Row, Col, Card, CardText, CardBody,
   CardTitle, Button, InputGroupAddon,InputGroup, Input, Table } from 'reactstrap';
 
-import {logout, getBalance, makeDeposit, withdrawDeposit, getAccounts} from '../../actions';
+import {logout, transaction,  getAccounts} from '../../actions/index';
 
 
 class Accounts extends Component {
@@ -15,7 +15,6 @@ class Accounts extends Component {
     }
   }
   componentDidMount() {
-    //this.props.getAccounts().then(() => this.props.getBalance())
     this.props.getAccounts();
   }
   handleInput = (e) => {
@@ -27,8 +26,9 @@ class Accounts extends Component {
 
   deposit = (e) => {
     if (this.state.amount > 0 ) {
-      this.props.makeDeposit(parseFloat(this.state.amount), 'D');
-      this.props.getBalance();
+      this.props.transaction(parseFloat(this.state.amount), 'D', 'Deposit');
+      //this.props.makeDeposit(parseFloat(this.state.amount), 'D');
+      //this.props.getBalance();
       let inputs = document.getElementsByTagName('input');
       this.setState({amount:0})
       inputs[0].value = '';
@@ -36,10 +36,10 @@ class Accounts extends Component {
   }
 
   withdraw = (e) => {
-
     if (this.state.amount > 0) {
-      this.props.withdrawDeposit(parseFloat(this.state.amount), 'W');
-      this.props.getBalance();
+      this.props.transaction(parseFloat(this.state.amount), 'W', 'Withdraw');
+      //this.props.withdrawDeposit(parseFloat(this.state.amount), 'W');
+      //this.props.getBalance();
       this.setState({amount:0});
       let inputs = document.getElementsByTagName('input');
       inputs[0].value = '';
@@ -118,9 +118,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
   logout,
-  getBalance,
-  makeDeposit,
-  withdrawDeposit,
+  transaction,
+  //makeDeposit,
+  //withdrawDeposit,
   getAccounts
 }
 

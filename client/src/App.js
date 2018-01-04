@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 import Header from './components/Header';
-import Home from './components/Home';
-import Accounts from './components/Accounts';
+import Home from './containers/Home';
+import Accounts from './containers/Accounts';
 
 import {UncontrolledAlert, Container, Row, Col } from 'reactstrap';
 

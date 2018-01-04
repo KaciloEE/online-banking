@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import {LOGIN_USER_START, LOGIN_USER_SUCCESS, LOGIN_USER_FAILURE, LOGOUT_USER} from '../constants';
 import {alertActions} from './alert';
+import {clearStateAccount} from './accounts'
 
 
 export const loginUserSuccess = (token) => dispatch => {
@@ -39,6 +40,7 @@ export const logout = () => dispatch => {
   localStorage.removeItem('token');
   dispatch({type: LOGOUT_USER})
   dispatch(alertActions.clear())
+  dispatch(clearStateAccount())
 }
 
 export const registerUser = (payload) => dispatch => {

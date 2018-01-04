@@ -12,7 +12,7 @@ import registerServiceWorker from './registerServiceWorker';
 
 import reducers from './reducers';
 import App from './App';
-import Register from './components/Register';
+import Register from './containers/Register';
 import {loginUserSuccess} from './actions';
 
 const store = createStore(reducers, composeWithDevTools(

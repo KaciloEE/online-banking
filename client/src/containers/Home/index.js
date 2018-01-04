@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Alert, Form, Jumbotron, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Label, Input, Col } from 'reactstrap';
 import {Link} from 'react-router';
-import {loginUser} from '../../actions';
+import {loginUser} from '../../actions/index';
 
 class Home extends Component {
   constructor(props) {
@@ -102,7 +102,7 @@ class Home extends Component {
             </Form>
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={this.handleSubmit}>Do Something</Button>{' '}
+            <Button color="primary" onClick={this.handleSubmit}>Submit</Button>{' '}
             <Button color="secondary" onClick={this.toggle}>Cancel</Button>
           </ModalFooter>
         </Modal>

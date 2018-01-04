@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {UncontrolledAlert, Alert, Container, Row, Col, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
-import Header from '../Header'
-import {registerUser} from '../../actions'
+import Header from '../../components/Header/index'
+import {registerUser} from '../../actions/index'
 
 class Register extends Component {
   constructor(props) {
