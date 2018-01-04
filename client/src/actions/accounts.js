@@ -38,13 +38,14 @@ export const getBalance = () => (dispatch) => {
   dispatch({type: GET_BALANCE})
 }
 
-export const transaction = (amount, code, desc) => async (dispatch, getState) => {
+export const transaction = (amount, code, desc, userId) => async (dispatch, getState) => {
+
   let depositTrans = {
     transactionID: hashCode(code, unixTime),
     amount: parseFloat(amount),
     date: parseFloat(unixTime),
     desc: desc,
-    user: jwtDecode(getState().auth.token).id
+    user: userId ? userId : jwtDecode(getState().auth.token).id
   }
   await axios.post('http://localhost:8081/api/transfer/', { headers: { token: getState().auth.token }, depositTrans } )
     .then(response => {

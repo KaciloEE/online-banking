@@ -1,10 +1,7 @@
 import React from 'react';
 import {
   Navbar,
-  NavbarBrand,
-  Nav,
-  NavItem,
-  NavLink
+  NavbarBrand
    } from 'reactstrap';
 
 const Header = () => {
@@ -12,11 +9,6 @@ const Header = () => {
     <div>
       <Navbar color="faded" light expand="md">
         <NavbarBrand href="/">Online Banking</NavbarBrand>
-        <Nav className="ml-auto" navbar>
-          <NavItem>
-              <NavLink href="/">LogOut</NavLink>
-          </NavItem>
-        </Nav>
       </Navbar>
     </div>
   )

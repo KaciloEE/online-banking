@@ -69,17 +69,15 @@ module.exports = (app) => {
   app.get('/api/balance/', (req, res) => {
     const decoded = jwt.decode(req.headers.token);
 
-    console.log(req.query)
-
-    // Account.findAll({
-    //   where: {
-    //     user: decoded.id
-    //   },
-    //   raw : true
-    // }).then(result => res.send({accData: result}))
-    //   .catch((err) => {
-    //   res.status(400).send({message: 'Something went wrong with your Signin'});
-    // });
+    Account.findAll({
+      where: {
+        user: decoded.role === 'admin' ? req.query.user : decoded.id
+      },
+      raw : true
+    }).then(result => res.send({accData: result}))
+      .catch((err) => {
+      res.status(400).send({message: 'Something went wrong with your Signin'});
+    });
 
   });
 

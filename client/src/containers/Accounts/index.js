@@ -93,7 +93,7 @@ class Accounts extends Component {
             <tbody>
             {this.props.balanceHistory.map((item,ind) =>
               <tr key={ind}>
-                <td>{Date(item.date)}</td>
+                <td>{item.date}</td>
                 <td>{item.transactionID}</td>
                 <td className={item.desc === 'Deposit' ? 'green' : 'red'}>{item.desc}</td>
                 <td className={item.desc === 'Deposit' ? 'green' : 'red'}>${item.amount}</td>

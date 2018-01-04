@@ -11,7 +11,8 @@ class Manager extends Component {
     super(props);
 
     this.state = {
-      amount:0
+      amount: 0,
+      user: null
     }
   }
   componentDidMount() {
@@ -26,7 +27,7 @@ class Manager extends Component {
 
   deposit = (e) => {
     if (this.state.amount > 0 ) {
-      this.props.transaction(parseFloat(this.state.amount), 'D', 'Deposit');
+      this.props.transaction(parseFloat(this.state.amount), 'D', 'Deposit', this.state.user);
       let inputs = document.getElementsByTagName('input');
       this.setState({amount:0})
       inputs[0].value = '';
@@ -35,7 +36,7 @@ class Manager extends Component {
 
   withdraw = (e) => {
     if (this.state.amount > 0) {
-      this.props.transaction(parseFloat(this.state.amount), 'W', 'Withdraw');
+      this.props.transaction(parseFloat(this.state.amount), 'W', 'Withdraw', this.state.user);
       this.setState({amount:0});
       let inputs = document.getElementsByTagName('input');
       inputs[0].value = '';
@@ -43,7 +44,10 @@ class Manager extends Component {
   }
 
   handleChange = (e) => {
-    this.props.getAccounts(e.target.value)
+    const u = e.target.value
+    this.setState({
+      user: u
+    }, () => this.props.getAccounts(this.state.user))
   }
 
   render() {
@@ -56,7 +60,7 @@ class Manager extends Component {
             <Form>
               <FormGroup>
                 <Input type="select" name="select" id="exampleSelect" onChange={this.handleChange}>
-                  <option>Select User...</option>
+                  <option value=''>Select User...</option>
                   {this.props.users.map(user =>
                     <option key={user.id} value={user.id}>{user.firstName}  {user.lastName}</option>
                   )}
@@ -74,8 +78,8 @@ class Manager extends Component {
                   <Input onChange={this.handleInput} className="warningRed" placeholder="Amount" type="number" min="0" step="50" />
                 </InputGroup>
                 <br/>
-                <Button color="success" onClick={this.deposit}>Deposits</Button>{' '}
-                <Button color="danger" onClick={this.withdraw}>Withdraw</Button>{' '}
+                <Button color="success" onClick={this.deposit} disabled={!this.state.user} >Deposits</Button>{' '}
+                <Button color="danger" onClick={this.withdraw} disabled={!this.state.user}>Withdraw</Button>{' '}
                 <Button color="info " onClick={this.props.logout}>LOGOUT</Button>
               </CardBody>
             </Card>
